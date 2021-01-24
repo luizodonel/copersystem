@@ -1,0 +1,21 @@
+@import "~bootstrap/dist/css/bootstrap.css"; 
+
+.titulo{
+    margin-left: 5%;
+}
+
+table{
+    margin-left: 10%;
+    margin-top: 3%;
+}
+
+.dados{
+    margin-top: 3%;
+    margin-left: 5%;
+    font-size: 126%;
+    font-style: oblique;
+}
+
+.button{
+    padding-left: 60%;
+}

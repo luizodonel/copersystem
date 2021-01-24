@@ -1,0 +1,79 @@
+<div class="alert alert-primary" role="alert">
+    <h2 class="titulo">Resgate</h2>
+</div>
+
+<div class="alert alert-light" role="alert">
+    <h4 class="titulo">Dados do investimento</h4>
+    <div class="form-row col-md-6 dados">
+
+        <div class="col">
+            <p>Nome</p>
+            <p>{{resgate.nome}}</p>
+        </div>
+        <div class="col">
+            <p>Saldo total disponível</p>
+            <p>{{resgate.saldoTotalDisponivel}}</p>
+        </div>
+        <div class="col">
+            <p>Valor total a resgatar</p>
+            <p>{{valorResgate | currency:'R$ '}}</p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="msgAlerta" class="alert alert-warning">
+    <strong>Warning!</strong> {{msg}}
+</div>
+
+<div class="alert alert-light" role="alert">
+    <h4 class="titulo">Resgate do seu jeito</h4>
+    <div class="Row col-md-12">
+
+        <table class="col-md-10 table">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Saldo acumulado</th>
+                    <th scope="col">Valor a resgatar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of resgate.acoes">
+                    <td>{{item.nome}}</td>
+                    <td (onChanges)="calcularPercentual(resgate.saldoTotalDisponivel,item)">{{item.percentual}}</td>
+                    <td><input class="form-control" value="0" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                            (blur)="calcularValor(resgate.saldoTotalDisponivel,item.percentual, $event)"></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="button">
+    <button type="button" (click)="confirmarResgate()" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmacao">
+        Confirmar Resgate
+    </button>
+
+    <button class="btn btn-danger" (click)="inicio()" style="margin-left: 5%;">Cancelar</button>
+</div>
+
+
+<div *ngIf="resgateValidado == true" class="modal fade" id="modalConfirmacao" tabindex="-1" aria-labelledby="modalConfirmacao" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmacao">RESGATE EFETUADO COM SUCESSO!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                O valor do resgate estará em sua conta em até 5 dias úteis.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> Novo Resgate </button>
+            </div>
+        </div>
+    </div>
+</div>
