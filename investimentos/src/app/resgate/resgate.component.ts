@@ -11,9 +11,9 @@ import { InvestimentosServerService } from '../server/investimentos-server.servi
 
 export class ResgateComponent implements OnInit {
 
-
+  valorAtualResgate: any;
   resgate: any;
-  valorResgate: number = 0;
+  valorResgate: any;
   msg: string;
   msgAlerta: boolean;
   resgateValidado: boolean;
@@ -33,9 +33,14 @@ export class ResgateComponent implements OnInit {
     if (valorResgate.target.value == '')
       valorResgate.target.value = 0;
 
-    this.valorResgate = parseFloat(valorResgate.target.value.replace('.', '').replace(',', '').replace('R$', '')) + this.valorResgate;
+    this.valorResgate = (parseFloat(valorResgate.target.value.replace('.', '').replace(',', '').replace('R$', '')) + this.valorResgate) - this.valorAtualResgate.replace('.', '').replace(',', '').replace('R$', '');
+
     this.validarResgate(this.valorResgate, percentual, saldoTotalDisponivel);
 
+  }
+
+  valorAtual(event) {
+    this.valorAtualResgate = event.target.value;
   }
 
   validarResgate(valorResgate, percentual, saldoTotal) {

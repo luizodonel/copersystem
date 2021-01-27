@@ -40,9 +40,9 @@
             <tbody>
                 <tr *ngFor="let item of resgate.acoes">
                     <td>{{item.nome}}</td>
-                    <td (onChanges)="calcularPercentual(resgate.saldoTotalDisponivel,item)">{{item.percentual}}</td>
+                    <td (onChanges)="calcularPercentual(resgate.saldoTotalDisponivel,item)" >{{item.percentual}}</td>
                     <td><input class="form-control" value="0" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-                            (blur)="calcularValor(resgate.saldoTotalDisponivel,item.percentual, $event)"></td>
+                            (blur)="calcularValor(resgate.saldoTotalDisponivel,item.percentual, $event)" (focus)="valorAtual($event)"></td>
                 </tr>
 
             </tbody>
